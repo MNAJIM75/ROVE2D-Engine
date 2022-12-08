@@ -42,4 +42,5 @@ LIKE:
 
 rove.bat:
 @EACH OFF
---TBA--
+%rayjit% rove main.lua conf.lua
+@ECHO ON
