@@ -31,6 +31,7 @@ vector.__index = vector
 
 -- get a random function from Love2d or base lua, in that order.
 local rand = math.random
+---@diagnostic disable-next-line: undefined-global
 if love and love.math then rand = love.math.random end
 
 -- makes a new vector
@@ -180,8 +181,14 @@ function vector:clamp(min, max)
 end
 
 -- get the heading (direction) of a vector
+--[[
 function vector:heading()
   return -math.atan2(self.y, self.x)
+end
+]]
+
+function vector:heading() 
+  return -math.atan(self.y, self.x)
 end
 
 -- rotate a vector by a certain number of degrees

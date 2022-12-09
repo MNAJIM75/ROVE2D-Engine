@@ -1,4 +1,5 @@
 local raylib = rove._internal._raylib
+---@class rove.Mouse : Module
 local mouse = rove.utls.Module('MOUSE')
 local lastButtonPressed = nil
 
@@ -39,6 +40,7 @@ function mouse._internal:init()
     -- register the mouse event
     rove.eventSystem.sub(nil, 'mousepressed')
     rove.eventSystem.sub(nil, 'mousereleased')
+    rove.eventSystem.sub(nil, 'mousefocus')
 end
 
 function mouse._internal:update()
@@ -51,6 +53,11 @@ function mouse._internal:update()
     if lastButtonPressed and raylib.IsMouseButtonReleased(lastButtonPressed) then
         rove.eventSystem.trigger('mousereleased', lastButtonPressed)
         lastButtonPressed = nil
+    end
+    local _window_focus = raylib.IsWindowFocused()
+    if _window_focus ~= rove.graphics._internal._window._focus then
+        rove.eventSystem.trigger('mousefocus', nil)
+        rove.graphics._internal._window._focus = _window_focus
     end
 end
     

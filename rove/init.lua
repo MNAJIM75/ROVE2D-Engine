@@ -5,12 +5,15 @@ _internal._files = {
     main_lua = 'main.lua', conf_lua = 'conf.lua'
 }
 
----@class Rove2D
+---@class rove
 ---@field conf function
 ---@field load function
 ---@field update function
 ---@field draw function
----@field graphics function
+---@field graphics rove.Graphics
+---@field mouse rove.Mouse
+---@field keyboard rove.Keyboard
+---@field audio Module
 rove = {
     _internal = {
         _raylib = raylib,
@@ -25,24 +28,36 @@ rove = {
         },
         _config = {
             window = {
-                width = 800, height = 480
+                width = 800, height = 480, title = 'Untitled'
             },
             console = false,
             modules = {
                 audio = false,
                 graphics = true,
-                physics = false
+                physics = false,
+                mouse = true,
+                keyboard = true
             }
         },
         _program = {
             InitDevices = function()
-                if rove._internal._config.modules.audio then raylib.InitAudioDevice() end
-                if rove._internal._config.modules.graphics then raylib.InitWindow(rove.graphics.getWindow()) end
-                if rove._internal._config.modules.physics then print'Not Yey been implemaneted' end
+                rove.utls.loopInTable(rove._internal._config.modules, function(_key, _value)
+                    if _value then
+                        local modulePath = 'rove.modules.' .. _key .. '_m'
+                        ---@type Module
+                        rove[_key] = require(modulePath)
+                        rove[_key]._internal:init()
+                        rove.utls.log('info', 'Module [' .. _key .. '] was Initialized.')
+                    end
+                end)
             end,
             DeInitDevices = function ()
-                if raylib.IsWindowReady() then raylib.CloseWindow() end
-                if raylib.IsAudioDeviceReady() then raylib.CloseAudioDevice() end
+                rove.utls.loopInTable(rove._internal._config.modules, function(_key, _value)
+                    if _value then
+                        rove[_key]._internal:deinit()
+                        rove.utls.log('info', 'Module [' .. _key .. '] was Deinitialized.')
+                    end
+                end)
             end
         }
     },
