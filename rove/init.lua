@@ -14,6 +14,7 @@ _internal._files = {
 ---@field mouse rove.Mouse
 ---@field keyboard rove.Keyboard
 ---@field audio Module
+local rove
 rove = {
     _internal = {
         _raylib = raylib,
@@ -101,3 +102,17 @@ rove = {
         self._internal._program.DeInitDevices()
     end
 }
+
+rove.utls.log('info', 'Rove2D initialized')
+
+local arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9 = ...
+
+-- test
+local function getFile(arg)
+    if arg == '.' then
+        return raylib.GetWorkingDirectory()
+    end
+end
+-- end
+
+print(getFile(arg0))
