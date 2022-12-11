@@ -47,8 +47,8 @@
 ---@field currentdir fun():string currentdir ()	Return current work directory path.
 ---@field chdir fun(P:string) chdir (P)	Change current work directory path.
 ---@field each fun(a) each (str_file, str_params, func_callback, tbl_option)	Iterate over directory tree.
----@field each function each (str_file, str_params, tbl_option)	Iterate over directory tree.
 --[[
+---@field each function each (str_file, str_params, tbl_option)	Iterate over directory tree.
 ---@field each function each (str_file, func_callback, tbl_option)	Iterate over directory tree.
 ---@field each function each (str_file, tbl_option)	Iterate over directory tree.
 ---@field each function each (func_callback, tbl_option)	Iterate over directory tree.
