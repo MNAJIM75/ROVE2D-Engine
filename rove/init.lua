@@ -96,8 +96,8 @@ rove = {
 
             --#region Draw
             raylib.BeginDrawing()
-            raylib.ClearBackground(raylib.WHITE)
-            if self.draw then self.draw() end
+            raylib.ClearBackground(raylib.BLUE)
+            if rove.draw then rove.draw() end
             raylib.EndDrawing()
             --#endregion
         end
@@ -110,6 +110,7 @@ rove.utls.log['info']('Rove2D initialized')
 rove.gundam = require'rove.modules.gundam_m'
 rove.gundam._internal:init()
 
+-- args handling
 local arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9 = ...
 
 -- check for the working directory

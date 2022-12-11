@@ -18,7 +18,7 @@ local function setRgbaColor(_r, _g, _b, _a)
     assert(type(_g) == 'number', 'ERROR: Invalid value for color component g')
     assert(type(_b) == 'number', 'ERROR: Invalid value for color component b')
     assert(type(_a) == 'number', 'ERROR: Invalid value for color component a')
-    return { _r, _g, _b, _a } 
+    return { _r *255, _g *255, _b *255, _a *255 } 
 end
 
 function graphics._internal:init()
