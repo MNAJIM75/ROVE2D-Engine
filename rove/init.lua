@@ -14,7 +14,7 @@ _internal._files = {
 ---@field mouse rove.Mouse
 ---@field keyboard rove.Keyboard
 ---@field audio Module
----@field filesystem table
+---@field filesystem rove.Filesystem
 rove = {
     _internal = {
         _raylib = raylib,
