@@ -107,6 +107,8 @@ rove = {
 }
 
 rove.utls.log['info']('Rove2D initialized')
+rove.gundam = require'rove.modules.gundam_m'
+rove.gundam._internal:init()
 
 local arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9 = ...
 

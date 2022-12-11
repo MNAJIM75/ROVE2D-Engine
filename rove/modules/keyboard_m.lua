@@ -2,7 +2,6 @@ local raylib = rove._internal._raylib
 ---@class rove.Keyboard : Module
 local keyboard = rove.utls.Module('KEYBOARD')
 local lastKeypressed = nil
---keyboard._internal = {}
 
 ---@class rove.KeyConstant The Key constant used by the raylib framework
 keyboard._internal.keys = {

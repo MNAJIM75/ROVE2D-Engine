@@ -10,7 +10,11 @@ local module = LIB_CLASS:extend('MODULE_TYPE')
 function module:new(_moduleName)
     self._internal = {}
     self._internal.name = _moduleName
-    self._internal.init = function(self) end
+
+    ---Initilize function of the module
+    self._internal.init = function(self) 
+        print(self.name)
+    end
     
     ---Update function of the module
     self._internal.update = function(self) end
@@ -19,7 +23,6 @@ function module:new(_moduleName)
     self._internal.deinit = function(self) end
 end
 
----Initilize function of the module
 
 
 return module
