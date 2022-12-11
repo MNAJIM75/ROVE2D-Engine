@@ -14,9 +14,7 @@ end
 
 ---@param _logType string the log type: debug, error, trace, info, warn, fatal.
 ---@param ... any print what is given to the console to a format name [type] - value
-function utls.log(_logType, ...)
-    LIB_LOG[_logType](...);
-end
+utls.log = LIB_LOG
 
 ---Create a new class type table
 ---@param _className string the name of the new generated class
@@ -27,6 +25,6 @@ utls.MODULE_TYPE = require'rove.modules.module_t'
 ---Create new module
 ---@param _moduleName string the name of the new module
 ---@return Module Module
-function utls.Module(_moduleName) return utls.MODULE_TYPE(_moduleName) end
+function utls.Module(_moduleName) return utls.MODULE_TYPE.new(_moduleName) end
 
 return utls

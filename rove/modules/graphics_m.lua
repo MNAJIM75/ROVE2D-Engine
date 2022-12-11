@@ -28,7 +28,7 @@ function graphics._internal:init()
         math.floor(rove._internal._config.window.height),
         rove._internal._config.window.title
     raylib.InitWindow(_width, _height, _title)
-    rove.utls.log('info', 'Window was Initialized.')
+    rove.utls.log['info']('Window was Initialized.')
 
     -- check focus
     if raylib.IsWindowFocused() then self._window._focus = true end
@@ -41,7 +41,7 @@ end
 function graphics._internal:_preQuit()
     rove.utls.loopInTable(self._loaded._sprites, function(_k, _v)
         raylib.UnloadTexture(_v)
-        rove.utls.log('info', 'Texture of key ->> ' .. _k .. ' <<- was unloaded')
+        rove.utls.log['info']('Texture of key ->> ' .. _k .. ' <<- was unloaded')
     end)
 end
 
@@ -103,7 +103,7 @@ function graphics.getDimensions() return graphics.getWidth(), graphics.getHeight
 -- new Object
 function graphics.newImage(_filename) 
     table.insert(graphics._internal._loaded._sprites, raylib.LoadTexture(_filename))
-    rove.utls.log('info', 'Texture of key ->> ' .. tostring(#graphics._internal._loaded._sprites) .. ' <<- was loaded')
+    rove.utls.log['info']('Texture of key ->> ' .. tostring(#graphics._internal._loaded._sprites) .. ' <<- was loaded')
     return graphics._internal._loaded._sprites[#graphics._internal._loaded._sprites]
 end
 

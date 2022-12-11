@@ -6,15 +6,15 @@ _internal._files = {
 }
 
 ---@class rove
----@field conf function
----@field load function
----@field update function
----@field draw function
+---@field conf fun(t:table)
+---@field load fun(arg:table)
+---@field update fun(dt:number)
+---@field draw fun()
 ---@field graphics rove.Graphics
 ---@field mouse rove.Mouse
 ---@field keyboard rove.Keyboard
 ---@field audio Module
-local rove
+---@field filesystem table
 rove = {
     _internal = {
         _raylib = raylib,
@@ -43,12 +43,13 @@ rove = {
         _program = {
             InitDevices = function()
                 rove.utls.loopInTable(rove._internal._config.modules, function(_key, _value)
+                    print(_key, _value)
                     if _value then
                         local modulePath = 'rove.modules.' .. _key .. '_m'
                         ---@type Module
                         rove[_key] = require(modulePath)
                         rove[_key]._internal:init()
-                        rove.utls.log('info', 'Module [' .. _key .. '] was Initialized.')
+                        rove.utls.log['info']('Module [' .. _key .. '] was Initialized.')
                     end
                 end)
             end,
@@ -56,7 +57,7 @@ rove = {
                 rove.utls.loopInTable(rove._internal._config.modules, function(_key, _value)
                     if _value then
                         rove[_key]._internal:deinit()
-                        rove.utls.log('info', 'Module [' .. _key .. '] was Deinitialized.')
+                        rove.utls.log['info']('Module [' .. _key .. '] was Deinitialized.')
                     end
                 end)
             end
@@ -64,6 +65,8 @@ rove = {
     },
     eventSystem = require'rove.modules.event_system_i',
     utls = require'rove.modules.utls_i',
+    ---@class rove.Filesystem
+    filesystem = require'path',
     initialize = function(self)
         --#region Error and Missing File Handleing
         self._internal._errorHandler.checkFileAssert(_internal._files.main_lua, 'There is no starting point')
@@ -80,11 +83,11 @@ rove = {
         --#endregion
     end,
 
-    run = function(self)
+    run = function(self, ...)
         self._internal._program.InitDevices()
 
         --#region Load the Game Data
-        if self.load then self.load() end
+        if self.load then self.load(...) end
 
         while not raylib.WindowShouldClose() do
             --#region Update
@@ -103,16 +106,13 @@ rove = {
     end
 }
 
-rove.utls.log('info', 'Rove2D initialized')
+rove.utls.log['info']('Rove2D initialized')
 
 local arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9 = ...
 
--- test
-local function getFile(arg)
-    if arg == '.' then
-        return raylib.GetWorkingDirectory()
-    end
-end
--- end
+-- check for the working directory
+local _dirctory_path = arg0 == '.' and rove.filesystem.currentdir() or arg0
+rove.filesystem.chdir(_dirctory_path) -- change to that directory
 
-print(getFile(arg0))
+rove:initialize()
+rove:run({arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9})
