@@ -1,6 +1,6 @@
 local raylib = rove._internal._raylib
 
----@class rove.Graphics : Module
+---@class rove.Graphics : rove.Module
 local graphics = rove.utls.Module("GRAPHICS")
 local quad = require'rove.modules.graphics.quad_t'
 

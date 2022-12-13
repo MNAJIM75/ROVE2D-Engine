@@ -1,7 +1,7 @@
 -- since the rove table was not fully initialized at this point so we going to call class independentlly
 local LIB_CLASS = require'rove.libs.classic'
 
----@class Module The base of all rove2d modules
+---@class rove.Module The base of all rove2d modules
 ---@field _internal table all non user api functions and types
 local module = LIB_CLASS:extend('MODULE_TYPE')
 

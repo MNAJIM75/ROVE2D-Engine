@@ -1,5 +1,5 @@
 local raylib = rove._internal._raylib
----@class rove.Keyboard : Module
+---@class rove.Keyboard : rove.Module
 local keyboard = rove.utls.Module('KEYBOARD')
 local lastKeypressed = nil
 

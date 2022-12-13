@@ -13,8 +13,8 @@ _internal._files = {
 ---@field graphics rove.Graphics
 ---@field mouse rove.Mouse
 ---@field keyboard rove.Keyboard
----@field audio Module
----@field filesystem rove.Filesystem
+---@field audio rove.Module
+---@field filesystem LIB_PATH
 rove = {
     _internal = {
         _raylib = raylib,
@@ -37,7 +37,8 @@ rove = {
                 graphics = true,
                 physics = false,
                 mouse = true,
-                keyboard = true
+                keyboard = true,
+                filesystem = true
             }
         },
         _program = {
@@ -46,7 +47,7 @@ rove = {
                     print(_key, _value)
                     if _value then
                         local modulePath = 'rove.modules.' .. _key .. '_m'
-                        ---@type Module
+                        ---@type rove.Module
                         rove[_key] = require(modulePath)
                         rove[_key]._internal:init()
                         rove.utls.log['info']('Module [' .. _key .. '] was Initialized.')
@@ -63,10 +64,9 @@ rove = {
             end
         }
     },
-    eventSystem = require'rove.modules.event_system_i',
+    eventSystem = require'rove.modules.eventsystem_i',
     utls = require'rove.modules.utls_i',
-    ---@class rove.Filesystem
-    filesystem = require'path',
+    --filesystem = require'path',
     initialize = function(self)
         --#region Error and Missing File Handleing
         self._internal._errorHandler.checkFileAssert(_internal._files.main_lua, 'There is no starting point')
@@ -112,10 +112,10 @@ rove.gundam._internal:init()
 
 -- args handling
 local arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9 = ...
-
+--[[
 -- check for the working directory
 local _dirctory_path = arg0 == '.' and rove.filesystem.currentdir() or arg0
 rove.filesystem.chdir(_dirctory_path) -- change to that directory
-
+]]
 rove:initialize()
 rove:run({arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9})

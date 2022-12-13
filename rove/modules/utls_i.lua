@@ -24,7 +24,7 @@ function utls.Class(_className) return LIB_CLASS:extend(_className) end
 utls.MODULE_TYPE = require'rove.modules.module_t'
 ---Create new module
 ---@param _moduleName string the name of the new module
----@return Module Module
+---@return rove.Module Module
 function utls.Module(_moduleName) return utls.MODULE_TYPE(_moduleName) end
 
 return utls

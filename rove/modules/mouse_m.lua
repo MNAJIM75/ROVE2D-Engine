@@ -1,5 +1,5 @@
 local raylib = rove._internal._raylib
----@class rove.Mouse : Module
+---@class rove.Mouse : rove.Module
 local mouse = rove.utls.Module('MOUSE')
 local lastButtonPressed = nil
 
