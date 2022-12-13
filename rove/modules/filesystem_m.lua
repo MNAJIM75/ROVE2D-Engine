@@ -1,3 +1,5 @@
+local raylib = rove._internal._raylib
+
 ---@class rove.Filesystem : rove.Module
 local filesystem = rove.utls.Module('FILESYSTEM')
 
@@ -14,6 +16,17 @@ filesystem._internal._extension = '.rove'
 --- ### Module Functions ###
 function filesystem._internal:init()
     self._paths['MainFileDirectory'] = _path.currentdir()
+
+    -- register the events
+    rove.eventSystem.sub(rove, 'filedropped')
+    rove.eventSystem.sub(rove, 'directorydropped')
+end
+
+function filesystem._internal:update()
+    if raylib.IsFileDropped() then
+        local _dropped_files = raylib.GetDroppedFiles(1)
+        rove.eventSystem.trigger('filedropped', _dropped_files)
+    end
 end
 
 -- ### Functions ###

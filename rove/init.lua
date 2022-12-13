@@ -1,3 +1,4 @@
+---@type raylib
 local raylib = require'raylib'
 
 local _internal = {}
@@ -6,6 +7,7 @@ _internal._files = {
 }
 
 ---@class rove
+---@field private isEngine boolean
 ---@field conf fun(t:table)
 ---@field load fun(arg:table)
 ---@field update fun(dt:number)
@@ -44,13 +46,19 @@ rove = {
         _program = {
             InitDevices = function()
                 rove.utls.loopInTable(rove._internal._config.modules, function(_key, _value)
-                    print(_key, _value)
                     if _value then
                         local modulePath = 'rove.modules.' .. _key .. '_m'
                         ---@type rove.Module
                         rove[_key] = require(modulePath)
                         rove[_key]._internal:init()
                         rove.utls.log['info']('Module [' .. _key .. '] was Initialized.')
+                    end
+                end)
+            end,
+            UpdateDevices = function()
+                rove.utls.loopInTable(rove._internal._config.modules, function(_key, _value)
+                    if _value then
+                        rove[_key]._internal:update()
                     end
                 end)
             end,
@@ -91,6 +99,7 @@ rove = {
 
         while not raylib.WindowShouldClose() do
             --#region Update
+            self._internal._program.UpdateDevices()
             if self.update then self.update(raylib.GetFrameTime()) end
             --#endregion
 
@@ -105,10 +114,10 @@ rove = {
         self._internal._program.DeInitDevices()
     end
 }
-
+rove.isEngine = true
 rove.utls.log['info']('Rove2D initialized')
-rove.gundam = require'rove.modules.gundam_m'
-rove.gundam._internal:init()
+--rove.gundam = require'rove.modules.gundam_m'
+--rove.gundam._internal:init()
 
 -- args handling
 local arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9 = ...

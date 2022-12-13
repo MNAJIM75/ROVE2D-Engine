@@ -1,0 +1,283 @@
+---@meta
+
+---@class raylib
+-- Window-related functions
+---Initialize window and OpenGL context
+---RLAPI void InitWindow(int width, int height, const char *title);  
+---@field InitWindow fun(width: integer, hegiht: integer, title: string) : nil  
+---Check if KEY_ESCAPE pressed or Close icon pressed
+---RLAPI bool WindowShouldClose(void);                               
+---@field WindowShouldClose fun() : boolean                               
+---Close window and unload OpenGL context
+---RLAPI void CloseWindow(void);                                     
+---@field CloseWindow fun() : nil                                     
+---Check if window has been initialized successfully
+---RLAPI bool IsWindowReady(void);                                   
+---@field IsWindowReady fun(nil) : boolean                                   
+---Check if window is currently fullscreen
+---RLAPI bool IsWindowFullscreen(void);                              
+---@field IsWindowFullscreen fun() : boolean                              
+---Check if window is currently hidden (only PLATFORM_DESKTOP)
+---RLAPI bool IsWindowHidden(void);                                  
+---@field IsWindowHidden fun() : boolean                                  
+---Check if window is currently minimized (only PLATFORM_DESKTOP)
+---RLAPI bool IsWindowMinimized(void);                               
+---@field IsWindowMinimized fun() : boolean                               
+---Check if window is currently maximized (only PLATFORM_DESKTOP)
+---RLAPI bool IsWindowMaximized(void);                               
+---@field IsWindowMaximized fun() : boolean                               
+---Check if window is currently focused (only PLATFORM_DESKTOP)
+---RLAPI bool IsWindowFocused(void);                                 
+---@field IsWindowFocused fun() : boolean                                 
+---Check if window has been resized last frame
+---RLAPI bool IsWindowResized(void);                                 
+---@field IsWindowResized fun() : boolean                                 
+---Check if one specific window flag is enabled
+---RLAPI bool IsWindowState(unsigned int flag);                      
+---@field IsWindowState fun(flag: integer) : boolean                      
+---Set window configuration state using flags
+---RLAPI void SetWindowState(unsigned int flags);                    
+---@field SetWindowState fun(flags: integer) : nil                    
+---Clear window configuration state flags
+---RLAPI void ClearWindowState(unsigned int flags);                  
+---@field ClearWindowState fun(flags: integer) : nil                  
+---Toggle window state: fullscreen/windowed (only PLATFORM_DESKTOP)
+---RLAPI void ToggleFullscreen(void);                                
+---@field ToggleFullscreen fun() : nil                              
+---Set window state: maximized, if resizable (only PLATFORM_DESKTOP)
+---RLAPI void MaximizeWindow(void);                                  
+---@field MaximizeWindow fun() : nil                                 
+---Set window state: minimized, if resizable (only PLATFORM_DESKTOP)
+---RLAPI void MinimizeWindow(void);                                  
+---@field MinimizeWindow fun() : nil                                  
+---Set window state: not minimized/maximized (only PLATFORM_DESKTOP)
+---RLAPI void RestoreWindow(void);                                   
+---@field RestoreWindow fun() : nil                                   
+---Set icon for window (only PLATFORM_DESKTOP)
+---RLAPI void SetWindowIcon(Image image);                            
+---@field SetWindowIcon fun(image: table) : nil                            
+---Set title for window (only PLATFORM_DESKTOP)
+---RLAPI void SetWindowTitle(const char *title);                     
+---@field SetWindowTitle fun(title: string) : nil                     
+---Set window position on screen (only PLATFORM_DESKTOP)
+---RLAPI void SetWindowPosition(int x, int y);                       
+---@field SetWindowPosition fun(x: integer, y: integer) : nil                       
+---Set monitor for the current window (fullscreen mode)
+---RLAPI void SetWindowMonitor(int monitor);                         
+---@field SetWindowMonitor fun(monitor: integer) : nil                         
+---Set window minimum dimensions (for FLAG_WINDOW_RESIZABLE)
+---RLAPI void SetWindowMinSize(int width, int height);               
+---@field SetWindowMinSize fun(width: integer, height: integer) : nil
+---Set window dimensions
+---RLAPI void SetWindowSize(int width, int height);                  
+---@field SetWindowSize fun(width: integer, height: integer) : nil
+---Get native window handle
+---RLAPI void *GetWindowHandle(void);                                
+---@field GetWindowHandle fun() : "*nil"
+---Get current screen width
+---RLAPI int GetScreenWidth(void);                                   
+---@field GetScreenWidth fun() : integer
+---Get current screen height
+---RLAPI int GetScreenHeight(void);                                  
+---@field GetScreenHeight fun() : integer
+---Get number of connected monitors
+---RLAPI int GetMonitorCount(void);                                  
+---@field GetMonitorCount fun() : integer
+---Get current connected monitor
+---RLAPI int GetCurrentMonitor(void);                                
+---@field GetCurrentMonitor fun() : integer
+---Get specified monitor position
+---RLAPI Vector2 GetMonitorPosition(int monitor);                    
+---@field GetMonitorPosition fun(monitor: integer) : "Vector2"
+---Get specified monitor width (max available by monitor)
+---RLAPI int GetMonitorWidth(int monitor);                           
+---@field GetMonitorWidth fun(monitor: integer) : integer
+---Get specified monitor height (max available by monitor)
+---RLAPI int GetMonitorHeight(int monitor);                          
+---@field GetMonitorHeight fun(monitor: integer) : integer
+---Get specified monitor physical width in millimetres
+---RLAPI int GetMonitorPhysicalWidth(int monitor);                   
+---@field GetMonitorPhysicalWidth fun(monitor: integer) : integer
+---Get specified monitor physical height in millimetres
+---RLAPI int GetMonitorPhysicalHeight(int monitor);                  
+---@field GetMonitorPhysicalHeight fun(monitor: integer) : integer
+---Get specified monitor refresh rate
+---RLAPI int GetMonitorRefreshRate(int monitor);                     
+---@field GetMonitorRefreshRate fun(monitor: integer) : integer
+---Get window position XY on monitor
+---RLAPI Vector2 GetWindowPosition(void);                            
+---@field GetWindowPosition fun() : "Vector2"                            
+---Get window scale DPI factor
+---RLAPI Vector2 GetWindowScaleDPI(void);                            
+---@field GetWindowScaleDPI fun() : "Vector2"                            
+---Get the human-readable, UTF-8 encoded name of the primary monitor
+---RLAPI const char *GetMonitorName(int monitor);                    
+---@field GetMonitorName fun(monitor: integer) : string
+---Set clipboard text content
+---RLAPI void SetClipboardText(const char *text);                    
+---@field SetClipboardText fun(text: string) : nil
+---Get clipboard text content '\n'
+---```RLAPI const char *GetClipboardText(void);```
+---@field GetClipboardText fun() : string
+-- Cursor-related functions
+---```RLAPI void ShowCursor(void);```
+---Shows cursor
+---@field ShowCursor fun() : nil
+---```RLAPI void HideCursor(void);```
+---Hides cursor
+---@field HideCursor fun() : nil
+---```RLAPI bool IsCursorHidden(void);```
+---Check if cursor is not visible
+---@field IsCursorHidden fun() : boolean
+---```RLAPI void EnableCursor(void);```
+---Enables cursor (unlock cursor)
+---@field EnableCursor fun() : nil
+---```RLAPI void DisableCursor(void);```
+---Disables cursor (lock cursor)
+---@field DisableCursor fun() : nil
+---```RLAPI bool IsCursorOnScreen(void);```
+---Check if cursor is on the screen
+---@field IsCursorOnScreen fun() : boolean
+---### Drawing-related functions ###
+---```RLAPI void ClearBackground(Color color);```
+---Set background color (framebuffer clear color)
+---@field ClearBackground fun(color: "Color") : nil
+---```RLAPI void BeginDrawing(void);```
+---Setup canvas (framebuffer) to start drawing
+---@field BeginDrawing fun() : nil
+---```RLAPI void EndDrawing(void);```
+---End canvas drawing and swap buffers (double buffering)
+---@field EndDrawing fun() : nil
+---```RLAPI void BeginMode2D(Camera2D camera);```
+---Begin 2D mode with custom camera (2D)
+---@field BeginMode2D fun(camera: "Camera2D") : nil
+---```RLAPI void EndMode2D(void);```
+---Ends 2D mode with custom camera
+---@field EndMode2D fun() : nil
+---```RLAPI void BeginMode3D(Camera3D camera);```
+---Begin 3D mode with custom camera (3D)
+---@field BeginMode3D fun(camera: "Camera3D") : nil
+---```RLAPI void EndMode3D(void);```
+---Ends 3D mode and returns to default 2D orthographic mode
+---@field EndMode3D fun() : nil
+---```RLAPI void BeginTextureMode(RenderTexture2D target);```
+---Begin drawing to render texture
+---@field BeginTextureMode fun(target: "RenderTexture2D") : nil
+---```RLAPI void EndTextureMode(void);```
+---Ends drawing to render texture
+---@field EndTextureMode fun() : nil
+---```RLAPI void BeginShaderMode(Shader shader);```
+---Begin custom shader drawing
+---@field BeginShaderMode fun(shader: "Shader") : nil
+---```RLAPI void EndShaderMode(void);```
+---End custom shader drawing (use default shader)
+---@field EndShaderMode fun() : nil
+---```RLAPI void BeginBlendMode(int mode);```
+---Begin blending mode (alpha, additive, multiplied, subtract, custom)
+---@field BeginBlendMode fun(mode: integer) : nil
+---```RLAPI void EndBlendMode(void);```
+---End blending mode (reset to default: alpha blending)
+---@field EndBlendMode fun() : nil
+---```RLAPI void BeginScissorMode(int x, int y, int width, int height);```
+---Begin scissor mode (define screen area for following drawing)
+---@field BeginScissorMode fun(x: integer, y: integer, width: integer, height: integer) : nil
+---```RLAPI void EndScissorMode(void);```
+---End scissor mode
+---@field EndScissorMode fun() : nil
+---```RLAPI void BeginVrStereoMode(VrStereoConfig config);```
+---Begin stereo rendering (requires VR simulator)
+---@field BeginVrStereoMode fun(config: "VrStereoConfig") : nil
+---```RLAPI void EndVrStereoMode(void);```
+---End stereo rendering (requires VR simulator)
+---@field EndVrStereoMode fun() : nil
+---###Files management functions###
+---```RLAPI unsigned char *LoadFileData(const char *fileName, unsigned int *bytesRead);```
+---Load file data as byte array (read)
+---@field  LoadFileData fun(fileName: string, bytesRead: integer | "unsigned int *") : string[] | "unsigned char *"
+---```RLAPI void UnloadFileData(unsigned char *data);```
+---Unload file data allocated by LoadFileData()
+---@field  UnloadFileData fun(data: string | "unsigned char *") : nil
+---```RLAPI bool SaveFileData(const char *fileName, void *data, unsigned int bytesToWrite);```
+---Save data to file from byte array (write), returns true on success
+---@field  SaveFileData fun(fileName: string, data: nil | "void *", bytesToWrite: integer | "unsigned int") : boolean
+---```RLAPI char *LoadFileText(const char *fileName);```
+---Load text data from file (read), returns a '\0' terminated string
+---@field  LoadFileText fun(fileName: string) : string
+---```RLAPI void UnloadFileText(char *text);```
+---Unload file text data allocated by LoadFileText()
+---@field  UnloadFileText fun(text: string) : nil
+---```RLAPI bool SaveFileText(const char *fileName, char *text);```
+---Save text data to file (write), string must be '\0' terminated, returns true on success
+---@field  SaveFileText fun(fileName: string, text: string) : boolean
+---```RLAPI bool FileExists(const char *fileName);```
+---Check if file exists
+---@field  FileExists fun(fileName: string) : boolean
+---```RLAPI bool DirectoryExists(const char *dirPath);```
+---Check if a directory path exists
+---@field  DirectoryExists fun(dirPath: string) : boolean
+---```RLAPI bool IsFileExtension(const char *fileName, const char *ext);```
+---Check file extension (including point: .png, .wav)
+---@field  IsFileExtension fun(fileName: string, ext: string) : boolean
+---```RLAPI const char *GetFileExtension(const char *fileName);```
+---Get pointer to extension for a filename string (includes dot: '.png')
+---@field  GetFileExtension fun(fileName: string) : string
+---```RLAPI const char *GetFileName(const char *filePath);```
+---Get pointer to filename for a path string
+---@field  GetFileName fun(filePath: string) : string
+---```RLAPI const char *GetFileNameWithoutExt(const char *filePath);```
+---Get filename string without extension (uses static string)
+---@field  GetFileNameWithoutExt fun(filePath: string) : string
+---```RLAPI const char *GetDirectoryPath(const char *filePath);```
+---Get full path for a given fileName with path (uses static string)
+---@field  GetDirectoryPath fun(filePath: string) : string
+---```RLAPI const char *GetPrevDirectoryPath(const char *dirPath);```
+---Get previous directory path for a given path (uses static string)
+---@field  GetPrevDirectoryPath fun(dirPath: string) : string
+---```RLAPI const char *GetWorkingDirectory(void);```
+---Get current working directory (uses static string)
+---@field  GetWorkingDirectory fun() : string
+---```RLAPI char **GetDirectoryFiles(const char *dirPath, int *count);```
+---Get filenames in a directory path (memory should be freed)
+---@field  GetDirectoryFiles fun(dirPath: string, count: integer) : string[]
+---```RLAPI void ClearDirectoryFiles(void);```
+---Clear directory files paths buffers (free memory)
+---@field  ClearDirectoryFiles fun() : nil
+---```RLAPI bool ChangeDirectory(const char *dir);```
+---Change working directory, return true on success
+---@field  ChangeDirectory fun(dir: string) : boolean
+---```RLAPI bool IsFileDropped(void);```
+---Check if a file has been dropped into window
+---@field  IsFileDropped fun(void)
+---```RLAPI char **GetDroppedFiles(int *count);```
+---Get dropped files names (memory should be freed)
+---@field  GetDroppedFiles fun(count: integer) : string[]
+---```RLAPI void ClearDroppedFiles(void);```
+---Clear dropped files paths buffer (free memory)
+---@field  ClearDroppedFiles fun(void) : nil
+---```RLAPI long GetFileModTime(const char *fileName);```
+---Get file modification time (last write time)
+---@field  GetFileModTime fun(fileName: string) : number
+---###Input-related functions: keyboard###
+---```RLAPI bool IsKeyPressed(int key);```
+---Check if a key has been pressed once
+---@field IsKeyPressed fun(key: rove.KeyConstant) : boolean
+---```RLAPI bool IsKeyDown(int key);```
+---Check if a key is being pressed
+---@field IsKeyDown fun(key: rove.KeyConstant) : boolean
+---```RLAPI bool IsKeyReleased(int key);```
+---Check if a key has been released once
+---@field IsKeyReleased fun(key: rove.KeyConstant) : boolean
+---```RLAPI bool IsKeyUp(int key);```
+---Check if a key is NOT being pressed
+---@field IsKeyUp fun(key: rove.KeyConstant) : boolean
+---```RLAPI void SetExitKey(int key);```
+---Set a custom key to exit program (default is ESC)
+---@field SetExitKey fun(key: rove.KeyConstant) : nil
+---```RLAPI int GetKeyPressed(void);```
+---Get key pressed (keycode), call it multiple times for keys queued, returns 0 when the queue is empty
+---@field GetKeyPressed fun() : rove.KeyConstant
+---```RLAPI int GetCharPressed(void);```
+---Get char pressed (unicode), call it multiple times for chars queued, returns 0 when the queue is empty
+---@field GetCharPressed fun() : rove.KeyConstant
+
+local raylib = {}

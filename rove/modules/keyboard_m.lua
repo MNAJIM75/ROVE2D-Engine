@@ -2,6 +2,7 @@ local raylib = rove._internal._raylib
 ---@class rove.Keyboard : rove.Module
 local keyboard = rove.utls.Module('KEYBOARD')
 local lastKeypressed = nil
+local lastCharpressed = nil
 
 ---@class rove.KeyConstant The Key constant used by the raylib framework
 keyboard._internal.keys = {
@@ -134,19 +135,23 @@ function keyboard.isDown(_key)
 end
 
 function keyboard._internal:init()
-    rove.eventSystem.sub(nil, 'keypressed') -- create the events related to the keyboard
-    rove.eventSystem.sub(nil, 'keyreleased')
+    rove.eventSystem.sub(rove, 'keypressed') -- create the events related to the keyboard
+    rove.eventSystem.sub(rove, 'keyreleased')
 end
 
 function keyboard._internal:update()
     local keypressed = raylib.GetKeyPressed()
+    local scanCode, isrepeat = raylib.GetCharPressed(), false -- for the time being isrepeat is always false
+    -- TODO: translate scanCode and implement the isrepeat true functionallty
     if keypressed > self.keys.KEY_NULL then
-        rove.eventSystem.trigger('keypressed', keypressed)
-        lastKeypressed = keypressed
+        -- for sake of not stopping we will go with string.format, until we done with more big stuff
+        -- TODO: use another way of convertion other than string.format
+        rove.eventSystem.trigger('keypressed', string.format('%c', keypressed), scanCode, isrepeat)
+        lastKeypressed = keypressed ; lastKeypressed = scanCode
     end
     if lastKeypressed and raylib.IsKeyUp(lastKeypressed) then
-        rove.eventSystem.trigger('keyreleased', lastKeypressed)
-        lastKeypressed = nil
+        rove.eventSystem.trigger('keyreleased', lastKeypressed, lastCharpressed, isrepeat)
+        lastKeypressed = nil ; lastKeypressed = nil
     end
 end
 

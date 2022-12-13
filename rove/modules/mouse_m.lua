@@ -16,7 +16,7 @@ mouse._internal.buttons = {
 -- properties 
 
 --#region Getter
-function mouse._internal.buttons:getMouseINT(_bstr) return self['MOUSE_BUTTON_' .. string.upper(_bstr)] end
+function mouse._internal:getMouseINT(_bstr) return self['MOUSE_BUTTON_' .. string.upper(_bstr)] end
 function mouse.getPosition() return raylib.GetMouseX(), raylib.GetMouseY() end
 function mouse.getX() return raylib.GetMouseX() end
 function mouse.getY() return raylib.GetMouseY() end
@@ -31,27 +31,27 @@ function mouse.setX(_x) mouse.setPosition(_x, mouse.getY()) end
 function mouse.setY(_y) mouse.setPosition(mouse.getX(), _y) end
 
 function mouse.isDown(_button)
-    if type(_button) == 'number' then return raylib.IsMouseButtonDown(_button)
-    elseif type(_button) == 'string' then return raylib.IsMouseButtonDown(mouse._internal.buttons:getMouseINT(_button)) end
+    if type(_button) == 'number' then return raylib.IsMouseButtonDown(_button - 1)
+    elseif type(_button) == 'string' then return raylib.IsMouseButtonDown(mouse._internal:getMouseINT(_button)) end
 end
 --#endregion
 
 function mouse._internal:init()
     -- register the mouse event
-    rove.eventSystem.sub(nil, 'mousepressed')
-    rove.eventSystem.sub(nil, 'mousereleased')
-    rove.eventSystem.sub(nil, 'mousefocus')
+    rove.eventSystem.sub(rove, 'mousepressed')
+    rove.eventSystem.sub(rove, 'mousereleased')
+    rove.eventSystem.sub(rove, 'mousefocus')
 end
 
 function mouse._internal:update()
     for _key, _value in pairs(self.buttons) do
         if raylib.IsMouseButtonPressed(_value) then
-            rove.eventSystem.trigger('mousepressed', _value)
+            rove.eventSystem.trigger('mousepressed', rove.mouse.getX(), rove.mouse.getY(),_value + 1)
             lastButtonPressed = _value
         end
     end
     if lastButtonPressed and raylib.IsMouseButtonReleased(lastButtonPressed) then
-        rove.eventSystem.trigger('mousereleased', lastButtonPressed)
+        rove.eventSystem.trigger('mousereleased', rove.mouse.getX(), rove.mouse.getY(), lastButtonPressed + 1)
         lastButtonPressed = nil
     end
     local _window_focus = raylib.IsWindowFocused()

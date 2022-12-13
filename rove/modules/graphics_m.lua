@@ -5,7 +5,6 @@ local graphics = rove.utls.Module("GRAPHICS")
 local quad = require'rove.modules.graphics.quad_t'
 
 -- internal vars and functions
-graphics._internal = {}
 graphics._internal._loaded = {}
 graphics._internal._loaded._sprites = {}
 graphics._internal._window = {}
