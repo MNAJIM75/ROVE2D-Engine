@@ -1,33 +1,24 @@
-THIS PROJECT IS AIMED TO MAKE A LOVE2D ONLY LIKE API BY THE
-USING OF THE RAYLIB-LUA BINDINGS (RAYLUA)
+This project aims to create a LOVE2D-like API using the Raylib-Lua bindings (RayLua).
 
-### PROJECT INFO:-
-- **NAME**: rove2D
-- **VERSION**: 0.0
-- **DEVELOPER**: MNAJIM75
-
-### PROJECT DESCRIBTION:
-FIRST I NEED TO MAKE THE API HAVE SOME BACKEND TO DO ALL THE WORK FOR ME. LIKE INSTED OF ME MAKING EACH COMPONENT AS TABLE, I'M GOING TO MAKE THEM AS MODULES WHERE THE ENGINE WILL RUN A SET OF FUNCTIONS AUTOMATIC. LIKE:
+### Project Description:
+First, I need to create a backend for the API to handle all the work. Instead of building each component as a table, I plan to structure them as modules where the engine will automatically execute a set of functions, like:
 `init() ; update(_dt) ; preDeInit() ; deInit()`
-THESE WILL BE EXCUTED BY THE ENGINE ON THERE OWN
+These will be executed by the engine on their own.
 
-THE ENGINE WILL ALSO TAKE A FUNCTIONS FROM THE DEVELOPER AND EXCUTED THEM. LIKE:
+The engine will also take functions from the developer and execute them, such as:
 `rove.load(args) ; rove.update(_dt) ; rove.draw() ; rove.mousepressed(_x, _y, _b) ... etc`
-THE SAME AS LOVE2D API SCRIPTED FUNCTIONS
+The same as LÖVE2D API scripted functions.
 
-### WHAT WILL BE INTEGRATED:
-- MODULES TYPE: THE CLASS/TYPE THAT WILL BE THE BASE
-FOR ALL THE INTEGRATED API LIBRARIES
-- MODULES SYSTEM/SCENE : THE SYSTEM WHERE THE MODULES
-EXCUTION DONE IN THE GAME LOOP
-- GRAPHICS: FOR GRAPHIC ACCESS
-- AUDIO: PLAY, PAUSE, OR STOP ALMOST ANY SOUND
-- MOUSE: MOUSE AND THE BUTTONS AND SOME TOUCH FEATURES
-- KEYBOARD: ALMOST ALL THE KEYBOARD INPUT KEYS
-- EVENT SYSTEM: THE SYSTEM IS MADE FOR SOME INGAME
-RUN EVENT FOR THE rove-ENGINE NOT THE GAME RUNNING
+### What will be integrated:
+- Modules Type: The class/type that serves as the foundation for all integrated API libraries.
+- Modules System/Scene: The system where module execution occurs within the game loop.
+- Graphics: Provides access to graphic rendering.
+- Audio: Allows playing, pausing, or stopping almost any sound.
+- Mouse: Handles mouse input, buttons, and some touch features.
+- Keyboard: Supports nearly all keyboard input keys.
+- Event System: A system designed for in-game events specific to the rove-engine, not for the game itself.
         
-THROUGH THE USE OF THIS METHOD I CAN SAPERATE THE rove-ENGINE FROM THE SUN-ENGINE AS WHEN DEVELOPING COMPLETE OR SEMI-COMP THE rove-ENGINE CAN BE INTEGRATED INTO THE RAYLIB-LUAJIT COMPILER THEN CREATING A BATCH FILE THAT WILL RUN THE GIVEN DIRECTOY main.lua FILE LIKE:
+Through this method, I can separate the Rove-Engine from the Sun-Engine. When developing complete or semi-complete systems, the Rove-Engine can be integrated into the Raylib-LuaJIT compiler, allowing the creation of a batch file that will run the specified directory's main.lua file, such as:
 
 #### rove.bat:
 ```bash
